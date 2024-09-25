@@ -1,6 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
-import { getTimestamp } from "./loggingEffect";
+import { getTimestamp } from "./timestamp";
 
 const insertText = (text: string) => {
 	const editor = vscode.window.activeTextEditor;
@@ -33,14 +33,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 		text
 			? vscode.commands.executeCommand("editor.action.insertLineAfter").then(() => {
-					const logToInsert = `console.log("\x1b[35m", [${getTimestamp()}] >>> ${text}: ', ${text});`;
+					const logToInsert = `console.log('[${getTimestamp()}] >>> ${text}: ', ${text});`;
 					insertText(logToInsert);
 			  })
-			: insertText("console.log();");
+			: insertText(`console.log('[${getTimestamp()}] ');`);
 	});
 
 	context.subscriptions.push(disposable);
-	console.log(`\x1b[38;5;213m [2024-9-25 11:5:47] >>> disposable: `, disposable);
 }
 
 export function deactivate() {}
