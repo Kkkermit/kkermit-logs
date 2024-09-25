@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		text
 			? vscode.commands.executeCommand("editor.action.insertLineAfter").then(() => {
-					const logToInsert = `${color.pink}[${getTimestamp()}] console.log('>>> ${text}: ', ${text});`;
+					const logToInsert = `console.log('${color.pink}[${getTimestamp()}] >>> ${text}: ', ${text});`;
 					insertText(logToInsert);
 			  })
 			: insertText("console.log();");
